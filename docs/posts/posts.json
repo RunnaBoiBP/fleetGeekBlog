@@ -1,0 +1,17 @@
+[
+  {
+    "path": "posts/welcome/",
+    "title": "Fleet Geek: Programming Runner",
+    "description": "A place for elaboration on various coding projects I've undertaken. Also I like running.",
+    "author": [
+      {
+        "name": "Ben Peterson",
+        "url": "https://fleet-geek.herokuapp.com"
+      }
+    ],
+    "date": "2019-04-17",
+    "categories": [],
+    "preview": {},
+    "last_modified": "2019-04-17T13:13:38-04:00"
+  }
+]

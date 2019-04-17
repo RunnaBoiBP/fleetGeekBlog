@@ -1,0 +1,62 @@
+---
+title: "My First Blog Post"
+description: |
+  Test post for my scientific post in RStudio. 
+author:
+  - name: Ben Peterson
+    url: https://fleet-geek.herokuapp.com
+date: 04-17-2019
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(ggplot2)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus interdum posuere lorem ipsum dolor sit amet. Cras fermentum odio eu feugiat. Viverra nam libero justo laoreet. In egestas erat imperdiet sed. Rhoncus est pellentesque elit ullamcorper dignissim cras. Lacinia quis vel eros donec ac. Interdum varius sit amet mattis vulputate enim nulla aliquet. Ut sem nulla pharetra diam sit. Diam maecenas ultricies mi eget mauris pharetra et ultrices neque. In dictum non consectetur a erat nam at lectus. Enim tortor at auctor urna.
+
+Sagittis id consectetur purus ut faucibus pulvinar elementum. Vulputate odio ut enim blandit volutpat maecenas volutpat blandit aliquam. Scelerisque purus semper eget duis at tellus. Vestibulum morbi blandit cursus risus. Amet facilisis magna etiam tempor orci eu lobortis. Blandit massa enim nec dui nunc mattis enim. Quis ipsum suspendisse ultrices gravida dictum fusce. Quis ipsum suspendisse ultrices gravida dictum. Senectus et netus et malesuada fames. Elit at imperdiet dui accumsan sit amet nulla facilisi morbi. Lorem ipsum dolor sit amet consectetur adipiscing elit ut. Nullam non nisi est sit amet facilisis magna. Vitae elementum curabitur vitae nunc sed velit dignissim. Neque vitae tempus quam pellentesque nec nam aliquam. Dapibus ultrices in iaculis nunc. Facilisis volutpat est velit egestas dui id. Mattis aliquam faucibus purus in massa tempor nec feugiat.
+
+Adipiscing commodo elit at imperdiet dui accumsan sit amet. Morbi tristique senectus et netus. Facilisi nullam vehicula ipsum a. Integer vitae justo eget magna fermentum iaculis. Arcu ac tortor dignissim convallis aenean. Turpis tincidunt id aliquet risus. Nunc sed id semper risus in hendrerit gravida rutrum quisque. Magna sit amet purus gravida quis blandit turpis cursus in. Nunc id cursus metus aliquam. Dictum sit amet justo donec enim diam vulputate ut pharetra. Bibendum enim facilisis gravida neque convallis a cras semper. Sed nisi lacus sed viverra tellus. Integer feugiat scelerisque varius morbi enim nunc faucibus a pellentesque.
+
+Nunc congue nisi vitae suscipit tellus mauris. Habitant morbi tristique senectus et netus. Morbi quis commodo odio aenean sed adipiscing diam donec. Eros in cursus turpis massa tincidunt dui ut ornare lectus. At imperdiet dui accumsan sit amet. Pharetra et ultrices neque ornare. Quam elementum pulvinar etiam non quam lacus suspendisse. Amet aliquam id diam maecenas ultricies mi. Dui vivamus arcu felis bibendum ut tristique et egestas quis. Dui sapien eget mi proin sed libero enim. Magna eget est lorem ipsum dolor. Placerat orci nulla pellentesque dignissim enim sit amet. Nunc sed velit dignissim sodales ut eu. Vel orci porta non pulvinar neque. Nec feugiat in fermentum posuere urna nec tincidunt. Mollis nunc sed id semper risus in hendrerit gravida rutrum. Urna condimentum mattis pellentesque id. Amet est placerat in egestas erat.
+
+Eleifend quam adipiscing vitae proin. Duis ut diam quam nulla porttitor massa id neque aliquam. Molestie ac feugiat sed lectus vestibulum mattis ullamcorper velit. Imperdiet proin fermentum leo vel orci porta non pulvinar neque. Turpis egestas pretium aenean pharetra magna ac placerat vestibulum lectus. Congue nisi vitae suscipit tellus mauris a. Gravida arcu ac tortor dignissim. Pulvinar neque laoreet suspendisse interdum consectetur libero id faucibus. Mi sit amet mauris commodo. Risus sed vulputate odio ut enim blandit volutpat maecenas volutpat. Ut faucibus pulvinar elementum integer enim. Sed libero enim sed faucibus turpis in. In hac habitasse platea dictumst vestibulum rhoncus est pellentesque. Et malesuada fames ac turpis egestas. Sed nisi lacus sed viverra. Elit eget gravida cum sociis natoque.
+
+## Analysis
+
+Well, here's a plot:
+
+```{r preview=TRUE}
+ggplot(iris, aes(x=Sepal.Width, y=Petal.Length)) +
+  geom_point(aes(color=Species))
+```
+
+
+And here's a table:
+
+```{r}
+iris %>%
+  group_by(Species) %>%
+  summarise(mean_Petal_Length = mean(Petal.Length)) %>%
+  rmarkdown::paged_table()
+```
+
+
+## Conclusion
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus interdum posuere lorem ipsum dolor sit amet. Cras fermentum odio eu feugiat. Viverra nam libero justo laoreet. In egestas erat imperdiet sed. Rhoncus est pellentesque elit ullamcorper dignissim cras. Lacinia quis vel eros donec ac. Interdum varius sit amet mattis vulputate enim nulla aliquet. Ut sem nulla pharetra diam sit. Diam maecenas ultricies mi eget mauris pharetra et ultrices neque. In dictum non consectetur a erat nam at lectus. Enim tortor at auctor urna.
+
+Sagittis id consectetur purus ut faucibus pulvinar elementum. Vulputate odio ut enim blandit volutpat maecenas volutpat blandit aliquam. Scelerisque purus semper eget duis at tellus. Vestibulum morbi blandit cursus risus. Amet facilisis magna etiam tempor orci eu lobortis. Blandit massa enim nec dui nunc mattis enim. Quis ipsum suspendisse ultrices gravida dictum fusce. Quis ipsum suspendisse ultrices gravida dictum. Senectus et netus et malesuada fames. Elit at imperdiet dui accumsan sit amet nulla facilisi morbi. Lorem ipsum dolor sit amet consectetur adipiscing elit ut. Nullam non nisi est sit amet facilisis magna. Vitae elementum curabitur vitae nunc sed velit dignissim. Neque vitae tempus quam pellentesque nec nam aliquam. Dapibus ultrices in iaculis nunc. Facilisis volutpat est velit egestas dui id. Mattis aliquam faucibus purus in massa tempor nec feugiat.
+
+Adipiscing commodo elit at imperdiet dui accumsan sit amet. Morbi tristique senectus et netus. Facilisi nullam vehicula ipsum a. Integer vitae justo eget magna fermentum iaculis. Arcu ac tortor dignissim convallis aenean. Turpis tincidunt id aliquet risus. Nunc sed id semper risus in hendrerit gravida rutrum quisque. Magna sit amet purus gravida quis blandit turpis cursus in. Nunc id cursus metus aliquam. Dictum sit amet justo donec enim diam vulputate ut pharetra. Bibendum enim facilisis gravida neque convallis a cras semper. Sed nisi lacus sed viverra tellus. Integer feugiat scelerisque varius morbi enim nunc faucibus a pellentesque.
+
+Nunc congue nisi vitae suscipit tellus mauris. Habitant morbi tristique senectus et netus. Morbi quis commodo odio aenean sed adipiscing diam donec. Eros in cursus turpis massa tincidunt dui ut ornare lectus. At imperdiet dui accumsan sit amet. Pharetra et ultrices neque ornare. Quam elementum pulvinar etiam non quam lacus suspendisse. Amet aliquam id diam maecenas ultricies mi. Dui vivamus arcu felis bibendum ut tristique et egestas quis. Dui sapien eget mi proin sed libero enim. Magna eget est lorem ipsum dolor. Placerat orci nulla pellentesque dignissim enim sit amet. Nunc sed velit dignissim sodales ut eu. Vel orci porta non pulvinar neque. Nec feugiat in fermentum posuere urna nec tincidunt. Mollis nunc sed id semper risus in hendrerit gravida rutrum. Urna condimentum mattis pellentesque id. Amet est placerat in egestas erat.
+
+Eleifend quam adipiscing vitae proin. Duis ut diam quam nulla porttitor massa id neque aliquam. Molestie ac feugiat sed lectus vestibulum mattis ullamcorper velit. Imperdiet proin fermentum leo vel orci porta non pulvinar neque. Turpis egestas pretium aenean pharetra magna ac placerat vestibulum lectus. Congue nisi vitae suscipit tellus mauris a. Gravida arcu ac tortor dignissim. Pulvinar neque laoreet suspendisse interdum consectetur libero id faucibus. Mi sit amet mauris commodo. Risus sed vulputate odio ut enim blandit volutpat maecenas volutpat. Ut faucibus pulvinar elementum integer enim. Sed libero enim sed faucibus turpis in. In hac habitasse platea dictumst vestibulum rhoncus est pellentesque. Et malesuada fames ac turpis egestas. Sed nisi lacus sed viverra. Elit eget gravida cum sociis natoque.

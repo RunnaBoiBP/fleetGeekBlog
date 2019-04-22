@@ -22,11 +22,81 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Data Analysis is a tough job, there are a lot of hurdles that can get in the way of meaningful studies of datasets. R has several packages to deal with these complications, one of them being the **tidyverse** package. 
 
-**Tidyverse** has many useful tools to clean up data and make it much easier to work with. Sometimes, there is a need to change variable names or group data, or make new columns with variables that you are needing to find, even subsetting your data and selecting the pieces you want as opposed to having to navigate the entire dataframe. **Tidyverse** makes these things possible, and relatively simple to use. Here we will explore a few of these packages inside of the **dplyr** package included in **tidyverse**
+**Tidyverse** has many useful tools to clean up data and make it much easier to work with. Sometimes, there is a need to change variable names or group data, or make new columns with variables that you are needing to find, even subsetting your data and selecting the pieces you want as opposed to having to navigate the entire dataframe. **Tidyverse** makes these things possible, and relatively simple to use. Here we will explore a few of these packages inside of the **dplyr** package included in **tidyverse**. After tidying the data, it becomes much easier to run statistical analysis tests on it and/or graphical analysis using the **ggplot2** package. 
 
+### Background Information
 
+BIO314--Ecology and Evolution section A uses RStudio in the lab portion of the class for data analysis, however most of their data wrangling is done using basic R and long, complex R commands. BIO314-B uses Excel for most of their data wrangling and analysis. I am currently in section A of the class, but due to scheduling conflicts I have to take section B of the lab. Thus, I was inspired to take this project on because of the disconnect between the two classes. The goal of this project was to create a tutorial in tidyverse to open an easier pathway to data analysis in the class. Ultimately, I hope that this tutorial will help in simplifying the tidying and analysis processes and eventually unify the two sections so there is one, easy way for classes to manage their data. 
 
+## **tidyverse**--A Package Made to Clean Data
 
+### Variable Names-- Legality 
 
+When working with dataframes in R, it is important to remember that there are certain ways to name variables. R does not allow spaces or characters such as parentheses or forward slash.
 
+In BIO314, one of the datasets used is from the lab on gall fly larvae. The lab involves going out into a field and collecting galls (woody growths on goldenrod plants that larvae grow in) and taking size measurements to determine what the fate of the larva was. The class data was collected in a document on Microsoft Excel.
 
+The following code chunk will import the dataset into RStudio and set the data types for each variable so we can tidy it up. I will be importing the data into two different datasets so we can show the difference between other methods versus **tidyverse** methods.
+
+#### Gall Data A
+
+```{r}
+A <- read_excel("studentGallData.xlsx", 
+    col_types = c("text", "numeric", "numeric", 
+        "numeric", "text", "text", "text"))
+```
+
+#### Gall Data B
+
+```{r}
+B <- read_excel("studentGallData.xlsx", 
+    col_types = c("text", "numeric", "numeric", 
+        "numeric", "text", "text", "text"))
+```
+
+First, we'll look into how to change the illegal column names. Dataframe A will be done using the `colnames()` function in the **base** R package. Dataframe B will be done using the `rename()` function in the **dplyr** package from **tidyverse**.
+
+#### Dataframe A
+
+First, using `colnames()` from the **base** package, we can change each illegal variable name individually in separate lines. The function takes the illegal column name in quotes inside the brackets and replaces it with the desired column name as an assignment. 
+
+```{r}
+colnames(A)[colnames(A)=="Gall Ht (cm)"] <- "gallHeightA"
+colnames(A)[colnames(A)=="Gall Dia (mm)"] <- "gallDiameterA"
+colnames(A)[colnames(A)=="Hole Dia (mm)"] <- "holeDiameterA"
+colnames(A)[colnames(A)=="Expected Cause (EG, WP, C)"] <- "expectedCauseA"
+colnames(A)[colnames(A)=="A / N"] <- "awayOrNearA"
+```
+
+```{r}
+DT::datatable(A, options = list(scrollX = TRUE))
+```
+
+As you can see, this gets the job done okay, but it is messy to look at and pretty complex. Also, this takes five separate functions to do, so it is rather tedious. Surely, there has got to be a better way. 
+
+#### Dataframe B
+
+Let's take a look at how the `rename()` function in the **dplyr** package can make this a lot more simple, and better yet, involve only one, easy to understand function.
+
+**dplyr**'s `rename()` function is easy! It takes the dataset you're using as the first argument and then you simply give your name change in the format shown:
+
+df <-
+rename(df, newVar1 = `Old Illegal Var`,
+             newVar2 = `Second Illegal`)
+             
+The backticks show R that you might be feeding it illegal variable names and so it looks for those too. To save the dataframe with the new variables, simply use the assignment operator to save it. In this example, I wil take our B dataset and name it tidyB since it has the nicer, legal names.  
+
+```{r}
+tidyB <-
+rename(B, gallHeightB = `Gall Ht (cm)`,
+          gallDiameterB = `Gall Dia (mm)`,
+          holeDiameterB = `Hole Dia (mm)`,
+          expectedCauseB = `Expected Cause (EG, WP, C)`,
+          awayOrNearB = `A / N`)
+```
+
+```{r}
+DT::datatable(tidyB, options = list(scrollX = TRUE))
+```
+
+Clearly, this also gets the job done, but in a much cleaner, easier to understand way. We used one function instead of five, and the code is a lot easier to understand. 

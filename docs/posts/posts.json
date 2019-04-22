@@ -15,6 +15,21 @@
     "last_modified": "2019-04-21T21:29:07-04:00"
   },
   {
+    "path": "posts/2019-04-21-tidyverse-tutorial/",
+    "title": "An Introduction to Tidyverse in Data Analysis",
+    "description": "A tutorial on how to use R's Tidyverse package to make data tidy. Tidying data makes for a nice, clean dataframe to use in analysis.",
+    "author": [
+      {
+        "name": "Ben Peterson",
+        "url": "https://fleet-geek.herokuapp.com"
+      }
+    ],
+    "date": "2019-04-21",
+    "categories": [],
+    "preview": {},
+    "last_modified": "2019-04-21T22:52:23-04:00"
+  },
+  {
     "path": "posts/2019-04-17-my-first-blog-post/",
     "title": "My First Blog Post",
     "description": "Test post for my scientific post in RStudio.",

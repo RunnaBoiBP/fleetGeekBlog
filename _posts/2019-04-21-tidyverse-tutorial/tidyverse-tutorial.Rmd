@@ -1,0 +1,32 @@
+---
+title: "An Introduction to Tidyverse in Data Analysis"
+description: |
+  A tutorial on how to use R's Tidyverse package to make data tidy. Tidying data makes for a nice, clean dataframe to use in analysis.
+author:
+  - name: Ben Peterson 
+    url: https://fleet-geek.herokuapp.com
+    affiliation: Georgetown College
+    affiliation_url: https://www.georgetowncollege.edu
+date: "`r Sys.Date()`"
+output: distill::distill_article
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(readxl)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction--Why the Need for Tidyverse?
+
+Data Analysis is a tough job, there are a lot of hurdles that can get in the way of meaningful studies of datasets. R has several packages to deal with these complications, one of them being the **tidyverse** package. 
+
+**Tidyverse** has many useful tools to clean up data and make it much easier to work with. Sometimes, there is a need to change variable names or group data, or make new columns with variables that you are needing to find, even subsetting your data and selecting the pieces you want as opposed to having to navigate the entire dataframe. **Tidyverse** makes these things possible, and relatively simple to use. Here we will explore a few of these packages inside of the **dplyr** package included in **tidyverse**
+
+
+
+
+
+
+

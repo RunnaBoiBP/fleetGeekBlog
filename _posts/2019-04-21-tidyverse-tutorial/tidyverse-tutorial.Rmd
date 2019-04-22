@@ -5,10 +5,10 @@ description: |
 author:
   - name: Ben Peterson 
     url: https://fleet-geek.herokuapp.com
-    affiliation: Georgetown College
-    affiliation_url: https://www.georgetowncollege.edu
 date: "`r Sys.Date()`"
-output: distill::distill_article
+output: 
+  distill::distill_article:
+    self_contained: false
 ---
 
 ```{r setup, include=FALSE}

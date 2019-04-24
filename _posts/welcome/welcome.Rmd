@@ -4,7 +4,7 @@ description: |
   A place for elaboration on various coding projects I've undertaken. Also I like running.
 author:
   - name: Ben Peterson
-    url: https://fleet-geek.herokuapp.com
+    url: https://runnaboibp.github.io/fleetGeekBlog
     affiliation: Georgetown College
     affiliation_url: https://georgetowncollege.edu
 date: 04-17-2019

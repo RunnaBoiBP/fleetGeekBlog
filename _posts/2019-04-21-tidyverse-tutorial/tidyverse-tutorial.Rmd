@@ -22,7 +22,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Data Analysis is a tough job, there are a lot of hurdles that can get in the way of meaningful studies of datasets. R has several packages to deal with these complications, one of them being the **tidyverse** package. 
 
-**Tidyverse** has many useful tools to clean up data and make it much easier to work with, one of which is called the **dplyr** package. Sometimes, there is a need to change variable names or group data, or make new columns with variables that you are needing to find, even subsetting your data and selecting the pieces you want as opposed to having to navigate the entire dataframe. **Dplyr** makes these things possible, and relatively simple to use. Here we will explore a few of these packages inside of the **dplyr** package. After tidying the data, it becomes much easier to run statistical analysis tests on it and/or graphical analysis using the **ggplot2** package. 
+**Tidyverse** has many useful tools to clean up data and make it much easier to work with, one of which is called the **dplyr** package. Sometimes, there is a need to change variable names or group data, or make new columns with variables that you are needing to find, even subsetting your data and selecting the pieces you want as opposed to having to navigate the entire dataframe. **Dplyr** makes these things possible, and relatively simple to use. Here we will explore a few of these packages inside of the **dplyr** package. After tidying the data, **tidyverse** allows you to use a tool called a pipe operator `%>%` which allows you to feed your dataset directly into your functions, so you don't have to worry about giving each function the data argument. With thses tools, it becomes much easier to run statistical analysis tests on it and/or graphical analysis using the **ggplot2** package. 
 
 ### Background Information
 
@@ -99,4 +99,32 @@ rename(B, gallHeightB = `Gall Ht (cm)`,
 DT::datatable(tidyB, options = list(scrollX = TRUE))
 ```
 
-Clearly, this also gets the job done, but in a much cleaner, easier to understand way. We used one function instead of five, and the code is a lot easier to understand. 
+Clearly, this also gets the job done, but in a much cleaner, easier to understand way.
+
+### Selecting varaibles to work with using **dplyr**
+
+When working with data in R, very rarely will you want to work with the entire dataset at once. Often you will be looking at specific varaibles to search for patterns and statistical significance. This means that you will want to subset your data.
+
+#### Base R Method
+
+This can be done using the **base** R package, but it is tedious and requires you to remember which column numbers your desired variables are in. You'd need to call your dataset and then use brackets--you'd structure the command with your row numbers,column numbers. So you'd have data[rows,columns]. If you only want to use columns, then you'd simply leave the rows argument blank and just have column numbers after the comma inside a c() command. An example of this would be:
+
+```{r}
+A[,c(2,3,4,5,6,7)]
+```
+
+Like before, the **base** R method gets the job done, but can be quite tedious depending on what your dataset looks like. Also, this requires you to remember column numbers and you might accidentally select wrong variables.
+
+#### Tidyverse -- **dplyr**'s `select()` function
+
+Like before, **tidyverse** includes a much simpler method to subsetting data, especially after you've given your data the legal names with the `rename()` function. This can be achieved using the `select()` function. Here, you will pipe your dataset in and just name the variables desired separated by commas. This looks relatively simple, and since you gave the dataset the nice names, it should be easy to remember. 
+
+```{r}
+tidyB %>%
+  select(gallHeightB, gallDiameterB, holeDiameterB, expectedCauseB, awayOrNearB)
+```
+
+This looks much nicer, and is a more user-friendly way of subsetting data.
+
+### Adding a variable using **dplyr**
+

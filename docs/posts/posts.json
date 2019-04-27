@@ -2,17 +2,17 @@
   {
     "path": "posts/2019-04-21-tidyverse-tutorial/",
     "title": "An Introduction to Tidyverse in Data Analysis",
-    "description": "A tutorial on how to use R's Tidyverse package to make data tidy. Tidying data makes for a nice, clean dataframe to use in analysis.",
+    "description": "A tutorial on how to use R's tidyverse package to make data tidy. Tidying data makes for a nice, clean dataframe to use in analysis. Tidyverse contains packages such as dplyr, which will be covered in this tutorial, for handling messy data wrangling in really good ways.",
     "author": [
       {
         "name": "Ben Peterson",
-        "url": "https://fleet-geek.herokuapp.com"
+        "url": "https://runnaboibp.github.io/fleetGeekBlog"
       }
     ],
-    "date": "2019-04-21",
+    "date": "2019-04-26",
     "categories": [],
     "preview": {},
-    "last_modified": "2019-04-21T23:02:22-04:00"
+    "last_modified": "2019-04-26T22:15:05-04:00"
   },
   {
     "path": "posts/2019-04-17-my-first-blog-post/",
@@ -27,7 +27,7 @@
     "date": "2019-04-17",
     "categories": [],
     "preview": "posts/2019-04-17-my-first-blog-post/my-first-blog-post_files/figure-html5/unnamed-chunk-1-1.png",
-    "last_modified": "2019-04-17T13:45:21-04:00"
+    "last_modified": "2019-04-24T13:10:40-04:00"
   },
   {
     "path": "posts/welcome/",
@@ -42,6 +42,6 @@
     "date": "2019-04-17",
     "categories": [],
     "preview": {},
-    "last_modified": "2019-04-17T13:13:38-04:00"
+    "last_modified": "2019-04-24T13:10:40-04:00"
   }
 ]

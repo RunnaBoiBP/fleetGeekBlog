@@ -6,15 +6,13 @@ description: |
 author:
   - name: Ben Peterson 
     url: https://runnaboibp.github.io/fleetGeekBlog
-    affiliation: Georgetown College
-    affiliation_url: https://georgetowncollege.edu
 date: "`r Sys.Date()`"
 output: 
   distill::distill_article:
     self_contained: false
 ---
 
-```{r setup}
+```{r setup, include=FALSE}
 library(tidyverse)
 library(ggplot2)
 library(readxl)

@@ -1,5 +1,20 @@
 [
   {
+    "path": "posts/2019-04-29-tidyverse-application/",
+    "title": "An Application of Tidyverse in Data Analysis",
+    "description": "A sample data tidying and analysis of the Goldenrod Gall Fly Larvae data from Bio\n314: Ecology and Evolution at Georgetown College.",
+    "author": [
+      {
+        "name": "Ben Peterson",
+        "url": "https://runnaboibp.github.io/fleetGeekBlog"
+      }
+    ],
+    "date": "2019-04-30",
+    "categories": [],
+    "preview": {},
+    "last_modified": "2019-04-30T16:59:53-04:00"
+  },
+  {
     "path": "posts/2019-04-21-tidyverse-tutorial/",
     "title": "An Introduction to Tidyverse in Data Analysis",
     "description": "A tutorial on how to use R's tidyverse package to make data tidy. Tidying data makes for a nice, clean dataframe to use in analysis. Tidyverse contains packages such as dplyr, which will be covered in this tutorial, for handling messy data wrangling in really good ways.",

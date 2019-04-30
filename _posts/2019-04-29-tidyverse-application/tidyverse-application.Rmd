@@ -9,7 +9,9 @@ author:
     affiliation: Georgetown College
     affiliation_url: https://georgetowncollege.edu
 date: "`r Sys.Date()`"
-output: distill::distill_article
+output: 
+  distill::distill_article:
+    self_contained: false
 ---
 
 ```{r setup}

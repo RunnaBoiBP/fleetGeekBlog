@@ -26,15 +26,16 @@ Data Analysis is a tough job, there are a lot of hurdles that can get in the way
 
 ### Background Information
 
-BIO314--Ecology and Evolution section A uses RStudio in the lab portion of the class for data analysis, however most of their data wrangling is done using basic R and long, complex R commands. BIO314-B uses Excel for most of their data wrangling and analysis. I am currently in section A of the class, but due to scheduling conflicts I have to take section B of the lab. Thus, I was inspired to take this project on because of the disconnect between the two classes. The goal of this project was to create a tutorial in tidyverse to open an easier pathway to data analysis in the class. Ultimately, I hope that this tutorial will help in simplifying the tidying and analysis processes and eventually unify the two sections so there is one, easy way for classes to manage their data. 
+BIO314--Ecology and Evolution section A uses RStudio in the lab portion of the class for data analysis, however most of their data wrangling is done using basic R and long, complex R commands. BIO314-B uses Excel for most of their data wrangling and analysis. I am currently in section A of the class, but due to scheduling conflicts I have to take section B of the lab. Thus, I was inspired to take this project on because of the disconnect between the two classes. The goal of this project was to create a tutorial in tidyverse to open an easier pathway to data analysis in the class. Ultimately, I hope that this tutorial will help in simplifying the tidying and analysis processes and eventually unify the two sections so there is one, easy way for classes to manage their data.
+
+
+In BIO314, one of the datasets used is from the lab on gall fly larvae. The lab involves going out into a field and collecting galls (woody growths on goldenrod plants that larvae grow in) and taking size measurements to determine what the fate of the larva was. The class data was collected in a document on Microsoft Excel.
 
 ## **tidyverse**--A Package Made to Clean Data
 
 ### Variable Names-- Legality 
 
 When working with dataframes in R, it is important to remember that there are certain ways to name variables. R does not allow spaces or characters such as parentheses or forward slash.
-
-In BIO314, one of the datasets used is from the lab on gall fly larvae. The lab involves going out into a field and collecting galls (woody growths on goldenrod plants that larvae grow in) and taking size measurements to determine what the fate of the larva was. The class data was collected in a document on Microsoft Excel.
 
 The following code chunk will import the dataset into RStudio and set the data types for each variable so we can tidy it up. I will be importing the data into two different datasets so we can show the difference between other methods versus **tidyverse** methods.
 
@@ -94,7 +95,7 @@ rename(df, newVar1 = `Old Illegal Var`,
            newVar2 = `Second Illegal`)
 ```  
            
-The backticks show R that you might be feeding it illegal variable names and so it looks for those too. To save the dataframe with the new variables, simply use the assignment operator to save it. In this example, I wil take our B dataset and name it tidyB since it has the nicer, legal names.  
+The backticks show R that you might be feeding it illegal variable names and so it looks for those too. To save the dataframe with the new variables, simply use the assignment operator to save it. In this example, we wil take our B dataset and name it tidyB since it has the nicer, legal names.  
 
 ```{r}
 tidyB <-
@@ -153,7 +154,7 @@ Now, an example of this using our tidyB gall dataset:
 ```{r}
 tidyB <-
 tidyB %>%
-  select(gallHeightB, gallDiameterB, holeDiameterB, expectedCauseB, awayOrNearB)
+  select(gallHeightB, gallDiameterB, holeDiameterB, expectedCauseB)
 ```
 
 ```{r}
@@ -175,9 +176,15 @@ data %>%
   group_by(varName)
 ```
 
-I'll show an example of this with the tidyB gall dataset plotting the number of cases for each group of expected gall hole causes in a bar graph.  
+We'll show an example of this with the tidyB gall dataset plotting the number of cases for each group of expected gall hole causes in a bar graph. The possible expected causes for a gall hole were:
 
-```{r preview=TRUE}
+* C:  Chickadee Attack
+* EG: Parisitoid Wasp Larvae
+* GF: Successfull Gall Fly Larvae
+* WP: Downy Woodpecker
+* NA: Gall Fly Larvae not yet emerged from gall
+
+```{r}
 tidyB %>%
   group_by(expectedCauseB) %>%
   ggplot(aes(x=expectedCauseB)) +
@@ -188,18 +195,40 @@ tidyB %>%
                 Goldenrod Gall Fly")
 ```
 
+Notice that there is an `NA` bar on the expected causes axis. This is because there were a significant number of galls that contained a gall fly larva still inside during the experiment. Thus, there was no expected cause for the gall hole because, well, there wasn't one. 
+
+### Using `filter()` to deal with `NA` values
+
+That bar graph above is nice, but what if you only wanted to look at galls where there was a hole. This means that we'd want to get rid of that pesky `NA` row. And while we could use a subset to omit the first row, **dplyr** has a tool where you can take care of that in the same code chunk as the graph. It is a function called filter, and it will return the rows that match the given criteria. We can use `filter()` on our code from above to make a nice graph that does not include the galls where a larva was found inside. 
+
+Here, since we want only the cases where expectedCauseB is NOT "NA", we put an exclamation point in front of our argument so R knows we want the opposite of the statement following it. 
+
+```{r preview=TRUE}
+tidyB %>%
+  group_by(expectedCauseB) %>%
+  filter(!expectedCauseB == "NA") %>%
+  ggplot(aes(x=expectedCauseB)) +
+    geom_bar(aes(fill=expectedCauseB)) + 
+    labs(x="Expected Cause of Hole found in Gall",
+         y="Count of Occurances",
+         title="Count of Expected Causes of Holes in Galls created by the 
+                Goldenrod Gall Fly")
+```
+
+As you can see, `filter()` enables us to easily handle this undesired case.
 
 ### Summarizing data using **dplyr**
 
-Often, you will find that you wish to find a summary of values in a dataset to use in analysis, such as a mean value. **Dplyr** has a handy tool for this in the `summarize()` function, which creates a new summary variable in the dataset to return the desired information. The `summarize()` function takes an argument in the form of the new variable name being equal to the value that you wish to assign this new variable.
+Often, you will find that you wish to find a summary of values in a dataset to use in analysis, such as a mean value. **Dplyr** has a handy tool for this in the `summarise()` function, which creates a new summary variable in the dataset to return the desired information. The `summarise()` function takes an argument in the form of the new variable name being equal to the value that you wish to assign this new variable.
 
-Now, I'll use the `summarize()` function to find the mean gall height for each of the groups of expected causes. Note that you can do more than one summary variable at a time, simply separate by commas as shown in this example. Also, the 'na.rm=TRUE' argument is a way to let R know to ignore NA values in the counts where an expected cause was identified.
+Now, we'll use the `summarise()` function to find the mean gall height for each of the groups of expected causes. Note that you can do more than one summary variable at a time, simply separate by commas as shown in this example. Also, the 'na.rm=TRUE' argument is a way to let R know to ignore NA values in the counts where an expected cause was identified.
 
 ```{r}
 tidyBSummary <-
 tidyB %>%
   group_by(expectedCauseB) %>%
-  summarize(meanDia = mean(gallDiameterB, na.rm=TRUE),
+  filter(!expectedCauseB == "NA") %>%
+  summarise(meanDia = mean(gallDiameterB, na.rm=TRUE),
             meanHt = mean(gallHeightB, na.rm=TRUE),
             meanHoleDia = mean(holeDiameterB, na.rm=TRUE))
 ```
@@ -207,10 +236,60 @@ tidyB %>%
 ```{r}
 tidyBSummary %>%
   knitr::kable(caption="Mean Gall Diameter, Gall Height, and Gall Hole diameter for the
-               five possible causes. Note `NA` represents a Gall where the gall fly 
-               larva was still alive inside the gall.")
+               five possible causes.")
+```
+
+### Adding a variable in using the `mutate()` function in **dplyr**
+
+Sometimes, you may want to add a variable to a dataframe. This can be done with ease using **dplyr**'s `mutate()` function. The function takes the new variable assignment as its argument, so the command will look something like this:
+
+```{r eval=FALSE}
+data %>%
+  mutate(newVar = desiredWork(currentVar))
+```
+
+For this example, we'll use the `mutate()` function with an ifelse statement to add a column distinguishing whether or not the expected cause was a wasp attack. 
+
+```{r}
+tidyB %>%
+  filter(!expectedCauseB == "NA") %>% 
+  mutate(is.wasp.attack = ifelse(expectedCauseB == "EG", TRUE, FALSE)) %>%
+  DT::datatable(options = list(scrollX = TRUE))
+```
+
+### Arranging a dataset by a variable
+
+Lastly, there may be times when you wish to arrange your data by a certain variable. **Dplyr** has a way to do that too in the `arrange()` function. This is relatively straightforward: `arrange()` takes the function for how your want to arrange your data (most commonly `desc()` is the function used for descending, `arrange()` defaults to ascending order). The order function inside of arrange takes the variable to be ordered  by as its lone argument. We'll use this to arrange our data from above by gall diameter in descending order.
+
+```{r}
+tidyB %>%
+  filter(!expectedCauseB == "NA") %>% 
+  mutate(is.wasp.attack = ifelse(expectedCauseB == "EG", TRUE, FALSE)) %>%
+  arrange(desc(gallDiameterB)) %>%
+  DT::datatable(options = list(scrollX = TRUE))
 ```
 
 
+### Applying **tidyverse** to data projects in BIO 314 Ecology and Evolutions
+
+As we've shown, **tidyverse** is an extremely useful tool to clean up data before analyzing it. The pipe operator allows for running multiple functions on a dataset at once, enabling users to accomplish multiple tasks in one code chunk--a feat that saves both time and space on machines. **dplyr** contains many functions that can be used to tidy data, making it legal and easy for R to understand, which should help make the task of analyzing data much simpler.
+
+This can be easily applied in BIO 314 because of the nature of the data worked with in the course. Most of the data is hand collected, and there is not always the guarantee that the data is always uniform and clear. Having **tidyverse** in your toolkit enables you to run meaningful statistical and graphical analysis to find patterns, without a lot of the headache that R's **base** package can cause. 
+
+For our concluding example, we'll use **ggplot2** and **dplyr** to create a scatter of Hole Diameter sizes against Gall Height, and color by expected cause to see what happens.
+
+```{r}
+tidyB %>%
+  group_by(expectedCauseB) %>%
+  filter(!expectedCauseB == "NA") %>%
+  ggplot(aes(x=holeDiameterB, y=gallHeightB)) +
+  geom_point(aes(color=expectedCauseB)) +
+  labs(x="Diameter of Hole in Gall (mm)",
+       y="Height of Gall from Ground (cm)",
+       title="Scatterplot of Gall Height versus Hole Diameter
+              grouped by Expected Cause")
+```
+
+There does seem to be a correlation between gall hole diameter and expected cause, but gall height does not seem to play a factor in expected cause. The tools we've covered in **tidyverse** and **ggplot** for tidying and simple graphical analysis can be powerful in determining which variables to look at for hypothesis testing and statistical analysis in lab reports in the BIO 314 Ecology and Evolution lab. 
 
 

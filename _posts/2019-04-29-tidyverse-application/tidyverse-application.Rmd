@@ -1,0 +1,164 @@
+---
+title: "An Application of Tidyverse in Data Analysis"
+description: |
+  A sample data tidying and analysis of the Goldenrod Gall Fly Larvae data from Bio
+  314: Ecology and Evolution at Georgetown College.
+author:
+  - name: Ben Peterson 
+    url: https://runnaboibp.github.io/fleetGeekBlog
+    affiliation: Georgetown College
+    affiliation_url: https://georgetowncollege.edu
+date: "`r Sys.Date()`"
+output: distill::distill_article
+---
+
+```{r setup}
+library(tidyverse)
+library(ggplot2)
+library(readxl)
+library(tigerstats)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+
+## Introduction
+
+The Goldenrod Gall Fly (GF) is a species of fly that lays its eggs in the stem of the goldenrod plant. The larvae hatch and secrete a hormone that causes the stem to grow a woody bulge that the larvae use as shelter and food throughout the winter. The life of a gall fly larva is far from safe, however, as they have a number of predators that attack the galls. The predators we focus on in this experiment are the chickadee (C), the downy woodpecker (WP), and a species of parasitoid wasp (EG). The Bio 314 lab class traveled to a field next to Lane's Run stream in Scott County and collected a sample of 428 galls, taking measurements on how high the gall was from the ground (gallHeight), the gall diameter (gallDiameter), the diameter of the hole in the gall if there was one (holeDiameter), and whether the gall was away from treeline by the water (>3 feet) or near it (<= 3 feet). Based on the diameter of the hole, the lab groups made conclusions on what caused the hole (expectedCause). This data was gathered into a Microsoft Excel Document and made available to me for this data analysis project.
+
+
+## Pre-Analysis Tidying
+
+```{r}
+studentGallData <- read_excel("studentGallData.xlsx", 
+    col_types = c("text", "numeric", "numeric", 
+        "numeric", "text", "text", "text"))
+
+studentGallData <-
+  studentGallData %>%
+    rename(gallHeight = `Gall Ht (cm)`,
+           gallDiameter = `Gall Dia (mm)`,
+           holeDiameter = `Hole Dia (mm)`,
+           expectedCause = `Expected Cause (EG, WP, C)`,
+           awayOrNear = `A / N`) %>%
+  select(ID, gallHeight, gallDiameter, holeDiameter, expectedCause)
+
+studentGallData$ID <- as.character(c(1:428))
+```
+
+The **tidyverse** package came in handy for the dataset, because the pipe (%>%) operator and the `rename()` and `select()` functions from **dplyr** were used to create legal varaible names and select the variables desired in this data analysis. The ID column also did not have uniform identifier names, so a simple assignment to the set of numbers from 1 to 428 (the number of galls in the sample) fixed the naming issue.
+
+## Methods
+
+For this analysis, a linear model was used to see if there is a correlation between the height of the gall and the hole size, and another was used to determine whether there was a correlation between gall diameter and hole size. The results of these led to a third question--whether gall diameter could predict the expected cause of gall hole. 
+
+The variables used for this analysis were:
+
+* gallHeight - the height of the gall from the ground (in cm)
+* gallDiameter - the diameter of the gall (in mm)
+* holeDiameter - the diameter of the hole found in the gall (in mm)
+* expectedCause - the expected cause of the hole found in the gall
+
+## Results
+
+### Gall Height versus Hole Diameter
+
+```{r}
+xyplot(gallHeight~holeDiameter,
+       groups=expectedCause,
+       data=studentGallData,
+       pch=19,
+       auto.key=TRUE)
+```
+
+It does not appear as though there is a strong correlation between gall height and hole diameter. There appears to be a slight correlation, as hole diameter goes up, it appears that the gall height is lower than the smaller hole diameters. Now, for the model to find the regression equation:
+
+```{r}
+lmGC(gallHeight~holeDiameter,
+     data=studentGallData,
+     graph=TRUE)
+```
+
+The linear model gave a correlation coefficient of r=0.03133. Remember that r always falls between -1 and 1, with the sign of r indicating positive/negative correlation and the magnitude of r showing the strength of correlation. Here, with r only being 0.03, it backs up the inference that there is not a very strong correlation between gall height and hole diameter. 
+
+One theory that can be drawn from this is that predators do not tend to show a preference in the height of galls that they attack.
+
+### Gall Diameter versus Hole Diameter
+
+```{r}
+xyplot(gallDiameter~holeDiameter,
+       groups=expectedCause,
+       data=studentGallData,
+       pch=19,
+       auto.key=TRUE)
+```
+
+It does not appear as though there is a correlation between gall diameter and hole diameter. Now, for the model to find the regression equation:
+
+```{r}
+lmGC(gallDiameter~holeDiameter,
+     data=studentGallData,
+     graph=TRUE)
+```
+
+This time, a correlation coefficient of r = 0.254 was obtained. According to this model, there was a bit stronger of a correlation between the diameter of the gall and the diameter of the hole. However, the correlation is still not a very strong one. This correlation does make sense, as you would expect birds (which leave the larger holes) to go after larger sized galls because they are easier to spot. And the smaller galls tend to be attacked by parasitoid wasps, or have successful gall fly larvae emerge from it, which is shown by the scatterplot above.
+
+### Gall Diameter versus Expected Cause
+
+The correlation between gall diameter and hole diameter led to the question of whether there was a relationship between the gall's diameter and the expected cause of gall hole. 
+
+#### Numerical Analysis
+
+First, the data was analyzed using the `favstats()` function from the **mosaic** package to find the spread of diameters for each group:
+
+```{r}
+favstats(gallDiameter~expectedCause, data=studentGallData)
+```
+
+As you can see, the mean diameter of bird attacked (WP, C) galls, 19.75 ((20+19.5)/2), is higher than the mean diameter of non-bird attacked (GF, EG) galls, 18.5 ((19+18)/2). This can be analyzed using a density plot to support this difference of means claim.
+
+#### Graphical Analysis
+
+Next, the data was plotted using a density plot to see the gall diameters by expected cause:
+
+```{r preview=TRUE}
+densityplot(~gallDiameter,data=studentGallData,
+       groups=expectedCause,
+       main="Gall Diameter Frequency, by Expected Cause",
+       xlab="Gall Diameter (mm)",
+       auto.key=TRUE)
+```
+
+The graph shows what was concluded from the numerical analysis, that the mean diameters of galls attacked by birds is higher than the mean diameters of galls attacked by wasps or that had successful gall fly larvae. 
+
+### Statistical Significance
+
+An ANOVA (analysis of variance) was used to determine whether there was a statistically significant difference in the means of the groups. The overall group mean $\mu$ can be found using `favstats()`:
+
+```{r}
+favstats(~gallDiameter, data=studentGallData)
+```
+
+Here we have $\mu$ = 18.46. 
+
+$H_0$: $\mu_1$ - $\mu_2$ = 0
+
+$H_a$: $\mu_1$ - $\mu_2$ $\neq$ 0
+
+Here, the `lm()` function and the `anova()` function was used to calculate the significance. 
+
+```{r}
+model <- lm(gallDiameter~expectedCause,data=studentGallData)
+summary(model)
+anova(model)
+```
+
+After running the analysis on the data, we found an F-statistic of 9.344, and a p-value very close to 0. The f-statistic is high, meaning there is significant evidence against $H_0$, and the p-value is extremely low. Since 7.362e-06 < 0.05, we can reject $H_0$ and say that there is evidence that Gall Diameter can determine the expected cause of hole found in the gall. The summary of the linear model showed high significance especially for Chickadee and Wasp mean diameter preference, as they had the greatest variance from the mean diameter of 18.46.
+
+## Conclusion
+
+The analysis done on the gall fly larva data determined that there is no significant evidence that gall height plays any factor in the predation preferences of birds and wasps. The linear regression model for gall diameter showed a slight correlation between gall diameter and hole diameter, which led to the question of if gall diameter could be used to predict the expected cause of attack. An ANOVA test and linear model summary were used to determine the significance of the difference in mean between the groups and the overall gall mean. This lead to the conclusion that gall diameter does indeed play a factor in the expected cause of attack. Likely, the larger galls are targeted more by birds, as we saw in the grahical analysis, because they are easier to spot by birds.
+
+
+
+

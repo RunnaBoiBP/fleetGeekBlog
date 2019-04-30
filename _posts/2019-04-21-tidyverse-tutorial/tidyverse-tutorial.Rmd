@@ -60,6 +60,14 @@ First, we'll look into how to change the illegal column names. Dataframe A will 
 
 First, using `colnames()` from the **base** package, we can change each illegal variable name individually in separate lines. The function takes the illegal column name in quotes inside the brackets and replaces it with the desired column name as an assignment. 
 
+The command would look like:
+
+```{r eval=FALSE}
+colnames(data)[colnames(data)=="Illegal Name"] <- "newVarName"
+```
+
+Now, an example using our newly created A dataset of gall data. Note that this must be done for each individual variable name you want to change. 
+
 ```{r}
 colnames(A)[colnames(A)=="Gall Ht (cm)"] <- "gallHeightA"
 colnames(A)[colnames(A)=="Gall Dia (mm)"] <- "gallDiameterA"
@@ -80,10 +88,12 @@ Let's take a look at how the `rename()` function in the **dplyr** package can ma
 
 **dplyr**'s `rename()` function is easy! It takes the dataset you're using as the first argument and then you simply give your name change in the format shown:
 
+```{r eval=FALSE}
 df <-
 rename(df, newVar1 = `Old Illegal Var`,
-             newVar2 = `Second Illegal`)
-             
+           newVar2 = `Second Illegal`)
+```  
+           
 The backticks show R that you might be feeding it illegal variable names and so it looks for those too. To save the dataframe with the new variables, simply use the assignment operator to save it. In this example, I wil take our B dataset and name it tidyB since it has the nicer, legal names.  
 
 ```{r}
@@ -107,7 +117,16 @@ When working with data in R, very rarely will you want to work with the entire d
 
 #### Base R Method
 
-This can be done using the **base** R package, but it is tedious and requires you to remember which column numbers your desired variables are in. You'd need to call your dataset and then use brackets--you'd structure the command with your row numbers,column numbers. So you'd have data[rows,columns]. If you only want to use columns, then you'd simply leave the rows argument blank and just have column numbers after the comma inside a c() command. An example of this would be:
+This can be done using the **base** R package, but it is tedious and requires you to remember which column numbers your desired variables are in. You'd need to call your dataset and then use brackets--you'd structure the command with your row numbers,column numbers. So you'd have data[rows,columns]. If you only want to use columns, then you'd simply leave the rows argument blank and just have column numbers after the comma inside a c() command. 
+
+This command would look like:
+
+```{r eval=FALSE}
+data <-
+data[,c(col1, col2, col3, ... )]
+DT::datatable(data)
+```
+
 
 ```{r}
 A<-
@@ -119,15 +138,79 @@ Like before, the **base** R method gets the job done, but can be quite tedious d
 
 #### Tidyverse -- **dplyr**'s `select()` function
 
-Like before, **tidyverse** includes a much simpler method to subsetting data, especially after you've given your data the legal names with the `rename()` function. This can be achieved using the `select()` function. Here, you will pipe your dataset in and just name the variables desired separated by commas. This looks relatively simple, and since you gave the dataset the nice names, it should be easy to remember. I'll pipe this into a DT::datatable so the output is nicer.
+Like before, **tidyverse** includes a much simpler method to subsetting data, especially after you've given your data the legal names with the `rename()` function. This can be achieved using the `select()` function. Here, you will pipe your dataset in and just name the variables desired separated by commas. This looks relatively simple, and since you gave the dataset the nice names, it should be easy to remember. I'll pipe this into a DT::datatable so the output is nicer. 
+
+The command would have the form:
+
+```{r eval=FALSE}
+data %>%
+  select(var1, var2, var3, ... ) %>%
+  DT::datatable() #If you wanted to make a prettier table
+``` 
+
+Now, an example of this using our tidyB gall dataset:
+
+```{r}
+tidyB <-
+tidyB %>%
+  select(gallHeightB, gallDiameterB, holeDiameterB, expectedCauseB, awayOrNearB)
+```
 
 ```{r}
 tidyB %>%
-  select(gallHeightB, gallDiameterB, holeDiameterB, expectedCauseB, awayOrNearB) %>%
-  DT::datatable(options = list(scrollX = TRUE))
+DT::datatable(options = list(scrollX = TRUE))
 ```
+
 
 This looks much nicer, and is a more user-friendly way of subsetting data.
 
-### Adding a variable using **dplyr**
+### Grouping Variables using **dplyr**'s `group_by()` function
+
+Sometimes, it is necessary to group data by a certain variable to compare and contrast. This can be done easily using **dplyr**'s `group_by()` function! Simply pipe your data into the `group_by()` function and give the variable name you want to group by as your argument. Then, you can run analysis on it to compare means, values, etc.
+
+The command would look like: 
+
+```{r eval=FALSE}
+data %>%
+  group_by(varName)
+```
+
+I'll show an example of this with the tidyB gall dataset plotting the number of cases for each group of expected gall hole causes in a bar graph.  
+
+```{r preview=TRUE}
+tidyB %>%
+  group_by(expectedCauseB) %>%
+  ggplot(aes(x=expectedCauseB)) +
+    geom_bar(aes(fill=expectedCauseB)) + 
+    labs(x="Expected Cause of Hole found in Gall",
+         y="Count of Occurances",
+         title="Count of Expected Causes of Holes in Galls created by the 
+                Goldenrod Gall Fly")
+```
+
+
+### Summarizing data using **dplyr**
+
+Often, you will find that you wish to find a summary of values in a dataset to use in analysis, such as a mean value. **Dplyr** has a handy tool for this in the `summarize()` function, which creates a new summary variable in the dataset to return the desired information. The `summarize()` function takes an argument in the form of the new variable name being equal to the value that you wish to assign this new variable.
+
+Now, I'll use the `summarize()` function to find the mean gall height for each of the groups of expected causes. Note that you can do more than one summary variable at a time, simply separate by commas as shown in this example. Also, the 'na.rm=TRUE' argument is a way to let R know to ignore NA values in the counts where an expected cause was identified.
+
+```{r}
+tidyBSummary <-
+tidyB %>%
+  group_by(expectedCauseB) %>%
+  summarize(meanDia = mean(gallDiameterB, na.rm=TRUE),
+            meanHt = mean(gallHeightB, na.rm=TRUE),
+            meanHoleDia = mean(holeDiameterB, na.rm=TRUE))
+```
+
+```{r}
+tidyBSummary %>%
+  knitr::kable(caption="Mean Gall Diameter, Gall Height, and Gall Hole diameter for the
+               five possible causes. Note `NA` represents a Gall where the gall fly 
+               larva was still alive inside the gall.")
+```
+
+
+
 

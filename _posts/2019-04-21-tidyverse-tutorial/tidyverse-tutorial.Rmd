@@ -277,7 +277,7 @@ tidyB %>%
 
 #### Graphical Example
 
-```{r}
+```{r preview=TRUE}
 tidyB %>%
   filter(!GPA == "NA") %>%
   ggplot(aes(x=seat,y=GPA)) +

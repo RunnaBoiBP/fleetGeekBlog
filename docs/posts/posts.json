@@ -1,5 +1,20 @@
 [
   {
+    "path": "posts/2019-04-21-tidyverse-tutorial/",
+    "title": "An Introduction to Tidyverse in Data Analysis",
+    "description": "A tutorial on how to use R's tidyverse package to make data tidy. Tidying data makes for a nice, clean dataframe to use in analysis. Tidyverse contains packages such as dplyr, which will be covered in this tutorial, for handling messy data wrangling in really good ways.",
+    "author": [
+      {
+        "name": "Ben Peterson",
+        "url": "https://runnaboibp.github.io/fleetGeekBlog"
+      }
+    ],
+    "date": "2019-05-02",
+    "categories": [],
+    "preview": "posts/2019-04-21-tidyverse-tutorial/tidyverse-tutorial_files/figure-html5/unnamed-chunk-24-1.png",
+    "last_modified": "2019-05-02T21:55:54-04:00"
+  },
+  {
     "path": "posts/2019-04-29-tidyverse-application/",
     "title": "An Application of Tidyverse in Data Analysis",
     "description": "A sample data tidying and analysis of the Goldenrod Gall Fly Larvae data from Bio\n314: Ecology and Evolution at Georgetown College.",
@@ -12,22 +27,7 @@
     "date": "2019-05-02",
     "categories": [],
     "preview": "posts/2019-04-29-tidyverse-application/tidyverse-application_files/figure-html5/unnamed-chunk-8-1.png",
-    "last_modified": "2019-05-02T21:49:19-04:00"
-  },
-  {
-    "path": "posts/2019-04-21-tidyverse-tutorial/",
-    "title": "An Introduction to Tidyverse in Data Analysis",
-    "description": "A tutorial on how to use R's tidyverse package to make data tidy. Tidying data makes for a nice, clean dataframe to use in analysis. Tidyverse contains packages such as dplyr, which will be covered in this tutorial, for handling messy data wrangling in really good ways.",
-    "author": [
-      {
-        "name": "Ben Peterson",
-        "url": "https://runnaboibp.github.io/fleetGeekBlog"
-      }
-    ],
-    "date": "2019-04-29",
-    "categories": [],
-    "preview": "posts/2019-04-21-tidyverse-tutorial/tidyverse-tutorial_files/figure-html5/unnamed-chunk-16-1.png",
-    "last_modified": "2019-04-29T23:52:10-04:00"
+    "last_modified": "2019-05-02T21:56:49-04:00"
   },
   {
     "path": "posts/2019-04-17-my-first-blog-post/",

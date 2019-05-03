@@ -1006,7 +1006,7 @@ Residual standard error: 18.98 on 360 degrees of freedom
 Multiple R-squared:  0.0009817, Adjusted R-squared:  -0.001793 
 F-statistic: 0.3538 on 1 and 360 DF,  p-value: 0.5524</code></pre>
 </div>
-<p>The linear model gave an R^2 value of 0.0009817. Remember that R^2 always falls between 0 and 1, with the magnitude of r showing the strength of correlation. Here, with R^2 only being 0.001, it backs up the inference that there is not a very strong correlation between gall height and hole diameter. We have a p-value of 0.5524, meaning that there is not enough evidence that gall height affects the hole diameter.</p>
+<p>The linear model gave an R^2 value of 0.0009817. Remember that R^2 always falls between 0 and 1, with the magnitude of r showing the strength of correlation. Here, with R^2 only being 0.001, it backs up the inference that there is not a very strong correlation between gall height and hole diameter. We have a p-value of 0.5524, meaning that if the null is correct, then there is a 55% chance of getting an f-statistic of at least 0.3538. This means that we can not reject the null hypothesis, so we conclude that gall height does not play a role in the diameter of the hole found in the gall.</p>
 <p>We can graph this using the <code>plotModel()</code> function from the <strong>mosaic</strong> package included in base R.</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="tidyverse-application_files/figure-html5/unnamed-chunk-4-1.png" width="624" /></p>
@@ -1067,8 +1067,8 @@ F-statistic: 27.93 on 1 and 405 DF,  p-value: 2.065e-07</code></pre>
    4 16     19 21  29 18.46143 3.748032 407      21</code></pre>
 </div>
 <p>Here we have <span class="math inline">\(\mu\)</span> = 18.46.</p>
-<p><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\mu_1\)</span> - <span class="math inline">\(\mu_2\)</span> = 0</p>
-<p><span class="math inline">\(H_a\)</span>: <span class="math inline">\(\mu_1\)</span> - <span class="math inline">\(\mu_2\)</span> <span class="math inline">\(\neq\)</span> 0</p>
+<p><span class="math inline">\(H_0\)</span>: There is no correlation between gall diameter and expected hole cause.</p>
+<p><span class="math inline">\(H_a\)</span>: There is evidence that suggests there is a correlation between gall diameter and expected hole cause.</p>
 <p>Here, the <code>lm()</code> function and the <code>anova()</code> function was used to calculate the significance.</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre><code>

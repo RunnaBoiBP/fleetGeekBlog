@@ -74,12 +74,19 @@ xyplot(gallHeight~holeDiameter,
 It does not appear as though there is a strong correlation between gall height and hole diameter. There appears to be a slight correlation, as hole diameter goes up, it appears that the gall height is lower than the smaller hole diameters. Now, for the model to find the regression equation:
 
 ```{r}
-lmGC(gallHeight~holeDiameter,
-     data=studentGallData,
-     graph=TRUE)
+modelA <- lm(gallHeight~holeDiameter, data=studentGallData)
+summary(modelA)
 ```
 
-The linear model gave a correlation coefficient of r=0.03133. Remember that r always falls between -1 and 1, with the sign of r indicating positive/negative correlation and the magnitude of r showing the strength of correlation. Here, with r only being 0.03, it backs up the inference that there is not a very strong correlation between gall height and hole diameter. 
+The linear model gave an R^2 value of 0.0009817. Remember that R^2 always falls between 0 and 1, with the magnitude of r showing the strength of correlation. Here, with R^2 only being 0.001, it backs up the inference that there is not a very strong correlation between gall height and hole diameter. We have a p-value of 0.5524, meaning that there is not enough evidence that gall height affects the hole diameter.
+
+We can graph this using the `plotModel()` function from the **mosaic** package included in base R.
+
+```{r}
+plotModel(modelA)
+```
+
+As you can see, the graph supports this claim that gall height indeed does not tend to affect the hole diameter and thus the expected cause.
 
 One theory that can be drawn from this is that predators do not tend to show a preference in the height of galls that they attack.
 
@@ -93,15 +100,14 @@ xyplot(gallDiameter~holeDiameter,
        auto.key=TRUE)
 ```
 
-It does not appear as though there is a correlation between gall diameter and hole diameter. Now, for the model to find the regression equation:
+It appears as though there may be a correlation between gall diameter and hole diameter. Now, for the model to find the regression equation:
 
 ```{r}
-lmGC(gallDiameter~holeDiameter,
-     data=studentGallData,
-     graph=TRUE)
+modelB <- lm(gallDiameter~holeDiameter, data=studentGallData)
+summary(modelB)
 ```
 
-This time, a correlation coefficient of r = 0.254 was obtained. According to this model, there was a bit stronger of a correlation between the diameter of the gall and the diameter of the hole. However, the correlation is still not a very strong one. This correlation does make sense, as you would expect birds (which leave the larger holes) to go after larger sized galls because they are easier to spot. And the smaller galls tend to be attacked by parasitoid wasps, or have successful gall fly larvae emerge from it, which is shown by the scatterplot above.
+This time, an R^2 value of 0.0645 was obtained. According to this model, there was a bit stronger of a correlation between the diameter of the gall and the diameter of the hole. However, the correlation is still not a very strong one. This correlation does make sense, as you would expect birds (which leave the larger holes) to go after larger sized galls because they are easier to spot. And the smaller galls tend to be attacked by parasitoid wasps, or have successful gall fly larvae emerge from it, which is shown by the scatterplot above. We also have a p-value of 2.065e-07, which is well below 0.05. This means that if the null hypothesis is correct, then there is a 2.065e-07 chance of getting an f-statistic at least as big as 27.93. Basically, there is enough statistical significance to reject the $H_0$ that there is no correlation between gall diameter and the diameter of the hole. We could infer then that gall diameter does play a factor in the diameter of the hole, which then allows a decision about the type of predator that attacked the gall.
 
 ### Gall Diameter versus Expected Cause
 
@@ -148,9 +154,9 @@ $H_a$: $\mu_1$ - $\mu_2$ $\neq$ 0
 Here, the `lm()` function and the `anova()` function was used to calculate the significance. 
 
 ```{r}
-model <- lm(gallDiameter~expectedCause,data=studentGallData)
-summary(model)
-anova(model)
+modelC <- lm(gallDiameter~expectedCause,data=studentGallData)
+summary(modelC)
+anova(modelC)
 ```
 
 After running the analysis on the data, we found an F-statistic of 9.344, and a p-value very close to 0. The f-statistic is high, meaning there is significant evidence against $H_0$, and the p-value is extremely low. Since 7.362e-06 < 0.05, we can reject $H_0$ and say that there is evidence that Gall Diameter can determine the expected cause of hole found in the gall. The summary of the linear model showed high significance especially for Chickadee and Wasp mean diameter preference, as they had the greatest variance from the mean diameter of 18.46.

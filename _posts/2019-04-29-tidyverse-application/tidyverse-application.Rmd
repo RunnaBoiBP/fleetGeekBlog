@@ -78,7 +78,7 @@ modelA <- lm(gallHeight~holeDiameter, data=studentGallData)
 summary(modelA)
 ```
 
-The linear model gave an R^2 value of 0.0009817. Remember that R^2 always falls between 0 and 1, with the magnitude of r showing the strength of correlation. Here, with R^2 only being 0.001, it backs up the inference that there is not a very strong correlation between gall height and hole diameter. We have a p-value of 0.5524, meaning that there is not enough evidence that gall height affects the hole diameter.
+The linear model gave an R^2 value of 0.0009817. Remember that R^2 always falls between 0 and 1, with the magnitude of r showing the strength of correlation. Here, with R^2 only being 0.001, it backs up the inference that there is not a very strong correlation between gall height and hole diameter. We have a p-value of 0.5524, meaning that if the null is correct, then there is a 55% chance of getting an f-statistic of at least 0.3538. This means that we can not reject the null hypothesis, so we conclude that gall height does not play a role in the diameter of the hole found in the gall.
 
 We can graph this using the `plotModel()` function from the **mosaic** package included in base R.
 
@@ -147,9 +147,9 @@ favstats(~gallDiameter, data=studentGallData)
 
 Here we have $\mu$ = 18.46. 
 
-$H_0$: $\mu_1$ - $\mu_2$ = 0
+$H_0$: There is no correlation between gall diameter and expected hole cause.
 
-$H_a$: $\mu_1$ - $\mu_2$ $\neq$ 0
+$H_a$: There is evidence that suggests there is a correlation between gall diameter and expected hole cause.
 
 Here, the `lm()` function and the `anova()` function was used to calculate the significance. 
 

@@ -25,8 +25,8 @@
 
 
 <!--  https://schema.org/Article -->
-<meta property="article:published" itemprop="datePublished" content="2019-04-30"/>
-<meta property="article:created" itemprop="dateCreated" content="2019-04-30"/>
+<meta property="article:published" itemprop="datePublished" content="2019-05-02"/>
+<meta property="article:created" itemprop="dateCreated" content="2019-05-02"/>
 <meta name="article:author" content="Ben Peterson"/>
 
 <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -45,12 +45,12 @@
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["An Application of Tidyverse in Data Analysis"]},{"type":"character","attributes":{},"value":["A sample data tidying and analysis of the Goldenrod Gall Fly Larvae data from Bio\n314: Ecology and Evolution at Georgetown College."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Ben Peterson"]},{"type":"character","attributes":{},"value":["https://runnaboibp.github.io/fleetGeekBlog"]}]}]},{"type":"character","attributes":{},"value":["2019-04-30"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["An Application of Tidyverse in Data Analysis"]},{"type":"character","attributes":{},"value":["A sample data tidying and analysis of the Goldenrod Gall Fly Larvae data from Bio\n314: Ecology and Evolution at Georgetown College."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Ben Peterson"]},{"type":"character","attributes":{},"value":["https://runnaboibp.github.io/fleetGeekBlog"]}]}]},{"type":"character","attributes":{},"value":["2019-05-02"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["studentGallData.xlsx","tidyverse-application_files/figure-html5/unnamed-chunk-2-1.png","tidyverse-application_files/figure-html5/unnamed-chunk-3-1.png","tidyverse-application_files/figure-html5/unnamed-chunk-4-1.png","tidyverse-application_files/figure-html5/unnamed-chunk-5-1.png","tidyverse-application_files/figure-html5/unnamed-chunk-7-1.png"]}
+  {"type":"character","attributes":{},"value":["studentGallData.xlsx","tidyverse-application_files/bowser-1.9.3/bowser.min.js","tidyverse-application_files/distill-2.2.21/template.v2.js","tidyverse-application_files/figure-html5/unnamed-chunk-2-1.png","tidyverse-application_files/figure-html5/unnamed-chunk-3-1.png","tidyverse-application_files/figure-html5/unnamed-chunk-4-1.png","tidyverse-application_files/figure-html5/unnamed-chunk-5-1.png","tidyverse-application_files/figure-html5/unnamed-chunk-7-1.png","tidyverse-application_files/figure-html5/unnamed-chunk-8-1.png","tidyverse-application_files/jquery-1.11.3/jquery.min.js","tidyverse-application_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 
@@ -1280,7 +1280,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"An Application of Tidyverse in Data Analysis","description":"A sample data tidying and analysis of the Goldenrod Gall Fly Larvae data from Bio\n314: Ecology and Evolution at Georgetown College.","authors":[{"author":"Ben Peterson","authorURL":"https://runnaboibp.github.io/fleetGeekBlog","affiliation":"&nbsp;","affiliationURL":"#"}],"publishedDate":"2019-04-30T00:00:00.000-04:00","citationText":"Peterson, 2019"}
+{"title":"An Application of Tidyverse in Data Analysis","description":"A sample data tidying and analysis of the Goldenrod Gall Fly Larvae data from Bio\n314: Ecology and Evolution at Georgetown College.","authors":[{"author":"Ben Peterson","authorURL":"https://runnaboibp.github.io/fleetGeekBlog","affiliation":"&nbsp;","affiliationURL":"#"}],"publishedDate":"2019-05-02T00:00:00.000-04:00","citationText":"Peterson, 2019"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1309,7 +1309,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="d-byline">
   Ben Peterson <a href="https://runnaboibp.github.io/fleetGeekBlog" class="uri">https://runnaboibp.github.io/fleetGeekBlog</a> 
   
-<br/>2019-04-30
+<br/>2019-05-02
 </div>
 
 <div class="d-article">
@@ -1337,40 +1337,59 @@ document.addEventListener('DOMContentLoaded', function() {
 <p>It does not appear as though there is a strong correlation between gall height and hole diameter. There appears to be a slight correlation, as hole diameter goes up, it appears that the gall height is lower than the smaller hole diameters. Now, for the model to find the regression equation:</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre><code>
-    Linear Regression
+Call:
+lm(formula = gallHeight ~ holeDiameter, data = studentGallData)
 
-Correlation coefficient r =  0.03133 
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-60.410 -12.354   1.119  11.619  78.090 
 
-Equation of Regression Line:
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   79.4104     1.2329  64.410   &lt;2e-16 ***
+holeDiameter   0.1941     0.3263   0.595    0.552    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 
-     gallHeight = 79.4104 + 0.1941 * holeDiameter 
-
-Residual Standard Error:    s   = 18.9827 
-R^2 (unadjusted):       R^2 = 0.001 </code></pre>
-<p><img src="tidyverse-application_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
+Residual standard error: 18.98 on 360 degrees of freedom
+  (66 observations deleted due to missingness)
+Multiple R-squared:  0.0009817, Adjusted R-squared:  -0.001793 
+F-statistic: 0.3538 on 1 and 360 DF,  p-value: 0.5524</code></pre>
 </div>
-<p>The linear model gave a correlation coefficient of r=0.03133. Remember that r always falls between -1 and 1, with the sign of r indicating positive/negative correlation and the magnitude of r showing the strength of correlation. Here, with r only being 0.03, it backs up the inference that there is not a very strong correlation between gall height and hole diameter.</p>
-<p>One theory that can be drawn from this is that predators do not tend to show a preference in the height of galls that they attack.</p>
-<h3 id="gall-diameter-versus-hole-diameter">Gall Diameter versus Hole Diameter</h3>
+<p>The linear model gave an R^2 value of 0.0009817. Remember that R^2 always falls between 0 and 1, with the magnitude of r showing the strength of correlation. Here, with R^2 only being 0.001, it backs up the inference that there is not a very strong correlation between gall height and hole diameter. We have a p-value of 0.5524, meaning that there is not enough evidence that gall height affects the hole diameter.</p>
+<p>We can graph this using the <code>plotModel()</code> function from the <strong>mosaic</strong> package included in base R.</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="tidyverse-application_files/figure-html5/unnamed-chunk-4-1.png" width="624" /></p>
 </div>
-<p>It does not appear as though there is a correlation between gall diameter and hole diameter. Now, for the model to find the regression equation:</p>
+<p>As you can see, the graph supports this claim that gall height indeed does not tend to affect the hole diameter and thus the expected cause.</p>
+<p>One theory that can be drawn from this is that predators do not tend to show a preference in the height of galls that they attack.</p>
+<h3 id="gall-diameter-versus-hole-diameter">Gall Diameter versus Hole Diameter</h3>
 <div class="layout-chunk" data-layout="l-body">
-<pre><code>
-    Linear Regression
-
-Correlation coefficient r =  0.254 
-
-Equation of Regression Line:
-
-     gallDiameter = 17.7408 + 0.3113 * holeDiameter 
-
-Residual Standard Error:    s   = 3.6296 
-R^2 (unadjusted):       R^2 = 0.0645 </code></pre>
 <p><img src="tidyverse-application_files/figure-html5/unnamed-chunk-5-1.png" width="624" /></p>
 </div>
-<p>This time, a correlation coefficient of r = 0.254 was obtained. According to this model, there was a bit stronger of a correlation between the diameter of the gall and the diameter of the hole. However, the correlation is still not a very strong one. This correlation does make sense, as you would expect birds (which leave the larger holes) to go after larger sized galls because they are easier to spot. And the smaller galls tend to be attacked by parasitoid wasps, or have successful gall fly larvae emerge from it, which is shown by the scatterplot above.</p>
+<p>It appears as though there may be a correlation between gall diameter and hole diameter. Now, for the model to find the regression equation:</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre><code>
+Call:
+lm(formula = gallDiameter ~ holeDiameter, data = studentGallData)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-13.7408  -2.0521   0.2592   2.7025  11.2592 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  17.74076    0.22576  78.583  &lt; 2e-16 ***
+holeDiameter  0.31134    0.05892   5.284 2.06e-07 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 3.63 on 405 degrees of freedom
+  (21 observations deleted due to missingness)
+Multiple R-squared:  0.0645,    Adjusted R-squared:  0.06219 
+F-statistic: 27.93 on 1 and 405 DF,  p-value: 2.065e-07</code></pre>
+</div>
+<p>This time, an R^2 value of 0.0645 was obtained. According to this model, there was a bit stronger of a correlation between the diameter of the gall and the diameter of the hole. However, the correlation is still not a very strong one. This correlation does make sense, as you would expect birds (which leave the larger holes) to go after larger sized galls because they are easier to spot. And the smaller galls tend to be attacked by parasitoid wasps, or have successful gall fly larvae emerge from it, which is shown by the scatterplot above. We also have a p-value of 2.065e-07, which is well below 0.05. This means that if the null hypothesis is correct, then there is a 2.065e-07 chance of getting an f-statistic at least as big as 27.93. Basically, there is enough statistical significance to reject the <span class="math inline">\(H_0\)</span> that there is no correlation between gall diameter and the diameter of the hole. We could infer then that gall diameter does play a factor in the diameter of the hole, which then allows a decision about the type of predator that attacked the gall.</p>
 <h3 id="gall-diameter-versus-expected-cause">Gall Diameter versus Expected Cause</h3>
 <p>The correlation between gall diameter and hole diameter led to the question of whether there was a relationship between the gall’s diameter and the expected cause of gall hole.</p>
 <h4 id="numerical-analysis">Numerical Analysis</h4>
@@ -1387,7 +1406,7 @@ R^2 (unadjusted):       R^2 = 0.0645 </code></pre>
 <h4 id="graphical-analysis">Graphical Analysis</h4>
 <p>Next, the data was plotted using a density plot to see the gall diameters by expected cause:</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="tidyverse-application_files/figure-html5/unnamed-chunk-7-1.png" width="624" data-distill-preview=1 /></p>
+<p><img src="tidyverse-application_files/figure-html5/unnamed-chunk-8-1.png" width="624" data-distill-preview=1 /></p>
 </div>
 <p>The graph shows what was concluded from the numerical analysis, that the mean diameters of galls attacked by birds is higher than the mean diameters of galls attacked by wasps or that had successful gall fly larvae.</p>
 <h3 id="statistical-significance">Statistical Significance</h3>

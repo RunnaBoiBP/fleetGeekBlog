@@ -148,7 +148,7 @@ df <- m111survey[, c("sex", "fastest")]
 head(df)
 ```
 
-The main drawback for the **base** R method is that you have to save the subset to a new data variable. Slightly tedious and not as pretty. We'll see that **tidyverse** has a nicer method to deal with selecting variables.
+The main drawback for the **base** R method is that you have to save the subset to a new data variable if you want to continue working  with your selected variables. Otherwise you'll have to run a function inside of a function inside of a function... Slightly tedious and not as pretty. We'll see that **tidyverse** has a nicer method to deal with selecting variables.
 
 #### Tidyverse -- **dplyr**'s `select()` function
 
@@ -281,7 +281,7 @@ tidyB %>%
 tidyB %>%
   filter(!GPA == "NA") %>%
   ggplot(aes(x=seat,y=GPA)) +
-  geom_point(aes(color=sex)) +
+  geom_jitter(aes(color=sex)) +
   labs(x="Seating Preference",
        y="Grade Point Average",
        title="GPA by Seating Preference grouped by Sex")
